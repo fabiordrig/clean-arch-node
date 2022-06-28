@@ -1,0 +1,26 @@
+{
+  "name": "clean-arch-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabiordrig/clean-arch-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fabiordrig/clean-arch-node/issues"
+  },
+  "homepage": "https://github.com/fabiordrig/clean-arch-node#readme",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "engines": {
+    "node": "17.x"
+  }
+}
