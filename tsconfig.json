@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "rootDirs": [
       "src",
       "tests"
@@ -12,7 +12,7 @@
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */                  /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "moduleResolution": "node",                          /* Specify how to resolve module names. */
-    "module": "commonjs",                                /* Specify how to parse imports. */
+    "module": "CommonJS",                                /* Specify how to parse imports. */
     "strict": true,                                     /* Enable all strict type-checking options. */
     "paths": {
       "@/*": ["src/*"],
