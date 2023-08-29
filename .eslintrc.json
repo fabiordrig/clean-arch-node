@@ -6,7 +6,9 @@
     },
     "extends": "standard-with-typescript",
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "project": "./tsconfig.eslint.json"
+
     },
     "rules": {
       "@typescript-eslint/quotes": ["error", "double"]

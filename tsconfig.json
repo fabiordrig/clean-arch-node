@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "rootDir": "src",                                  /* Specify the root folder within your source files. */
+    "baseUrl": ".",
+    "rootDirs": [
+      "src",
+      "tests"
+    ],
     "outDir": "dist",                                   /* Specify an output folder for all emitted files. */
     "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
     "target": "es2022",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
@@ -10,10 +14,9 @@
     "moduleResolution": "node",                          /* Specify how to resolve module names. */
     "module": "commonjs",                                /* Specify how to parse imports. */
     "strict": true,                                     /* Enable all strict type-checking options. */
-    "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],
-      "@/tests/*": ["../tests/*"],
+      "@/*": ["src/*"],
+      "@/tests/*": ["tests/*"],
     },
   },
   "include": ["src", "tests"],                           /* Specify an array of glob patterns that match files to be included in compilation. */
