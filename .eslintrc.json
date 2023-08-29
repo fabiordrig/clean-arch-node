@@ -6,11 +6,13 @@
     },
     "extends": "standard-with-typescript",
     "parserOptions": {
-        "ecmaVersion": "latest",
-        "project": "./tsconfig.eslint.json"
+        "project": "./tsconfig.json"
 
     },
     "rules": {
-      "@typescript-eslint/quotes": ["error", "double"]
+      "@typescript-eslint/quotes": ["error", "double"],
+      "@typescript-eslint/space-before-function-paren": "off",
+      "@typescript-eslint/no-namespace": "off",
+      "@typescript-eslint/consistent-type-definitions": "off"
     }
 }

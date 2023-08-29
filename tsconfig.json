@@ -19,5 +19,5 @@
       "@/tests/*": ["tests/*"],
     },
   },
-  "include": ["src", "tests"],                           /* Specify an array of glob patterns that match files to be included in compilation. */
+  "include": ["src", "tests", "jest.config.js"],                           /* Specify an array of glob patterns that match files to be included in compilation. */
 }
