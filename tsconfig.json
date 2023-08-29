@@ -16,5 +16,5 @@
       "@/tests/*": ["../tests/*"],
     },
   },
-  "include": ["src"],
+  "include": ["src", "tests"],                           /* Specify an array of glob patterns that match files to be included in compilation. */
 }

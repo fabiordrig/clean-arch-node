@@ -1,4 +1,5 @@
-import { addAlias } from "module-alias";
 import { resolve } from "path"
+import { addAlias } from "module-alias"
 
-addAlias("@", resolve('dist'));
+addAlias("@", resolve("dist"))
+
