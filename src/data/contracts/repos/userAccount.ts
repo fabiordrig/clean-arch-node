@@ -12,3 +12,20 @@ export namespace LoadUserAccountRepository {
     email: string
   }
 }
+
+export interface CreateFacebookAccountRepository {
+  createFromFacebook: (params: CreateFacebookAccountRepository.Params) => Promise<CreateFacebookAccountRepository.Result>
+}
+
+export namespace CreateFacebookAccountRepository {
+  export type Result = {
+    id: string
+    name?: string
+  }
+
+  export type Params = {
+    email: string
+    name: string
+    facebookId: string
+  }
+}
