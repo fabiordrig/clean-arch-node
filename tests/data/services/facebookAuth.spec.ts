@@ -3,15 +3,17 @@ import { FacebookAuthService } from "@/data/services"
 import { type LoadUserAccountRepository, type SaveFacebookAccountRepository } from "@/data/contracts/repos"
 import { type LoadFacebookUserApi } from "@/data/contracts/api"
 import { mock, type MockProxy } from "jest-mock-extended"
+import { FacebookAccount } from "@/domain/models"
+import { type TokenGenerator } from "@/data/contracts/crypto"
 
 describe("FacebookAuthService", () => {
   let sut: FacebookAuthService
   let facebookApi: MockProxy<LoadFacebookUserApi>
+  let crypto: MockProxy<TokenGenerator>
   let repository: MockProxy<LoadUserAccountRepository & SaveFacebookAccountRepository>
 
   const token = "anyToken"
   const facebookId = "anyFacebookId"
-  const name = "anyName"
   const fbName = "anyFbName"
   const email = "anyEmail"
   const id = "anyId"
@@ -24,8 +26,12 @@ describe("FacebookAuthService", () => {
       email
     })
     repository = mock()
+    crypto = mock()
     repository.load.mockResolvedValue(undefined)
-    sut = new FacebookAuthService(facebookApi, repository)
+    repository.saveWithFacebook.mockResolvedValue({
+      id
+    })
+    sut = new FacebookAuthService(facebookApi, repository, crypto)
   })
 
   it("should call LoadFacebookUserApi with correct params", async () => {
@@ -61,35 +67,17 @@ describe("FacebookAuthService", () => {
     expect(repository.saveWithFacebook).toHaveBeenCalledTimes(1)
   })
 
-  it("should not update name", async () => {
-    repository.load.mockResolvedValueOnce({
-      id,
-      name
-    })
-
+  it("should call SaveFacebookAccountRepository with FacebookAccount", async () => {
     await sut.perform({ token })
 
-    expect(repository.saveWithFacebook).toHaveBeenCalledWith({
-      id,
-      name,
-      email,
-      facebookId
-    })
+    expect(repository.saveWithFacebook).toHaveBeenCalledWith(expect.any(FacebookAccount))
     expect(repository.saveWithFacebook).toHaveBeenCalledTimes(1)
   })
-  it("should update account name", async () => {
-    repository.load.mockResolvedValueOnce({
-      id
-    })
 
+  it("should call TokenGenerator with correct params", async () => {
     await sut.perform({ token })
 
-    expect(repository.saveWithFacebook).toHaveBeenCalledWith({
-      id,
-      name: fbName,
-      email,
-      facebookId
-    })
+    expect(crypto.generateToken).toHaveBeenCalledWith({ key: id })
     expect(repository.saveWithFacebook).toHaveBeenCalledTimes(1)
   })
 })
