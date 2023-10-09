@@ -3,7 +3,7 @@ import { FacebookAuthService } from "@/data/services"
 import { type LoadUserAccountRepository, type SaveFacebookAccountRepository } from "@/data/contracts/repos"
 import { type LoadFacebookUserApi } from "@/data/contracts/api"
 import { mock, type MockProxy } from "jest-mock-extended"
-import { FacebookAccount } from "@/domain/models"
+import { AccessToken, FacebookAccount } from "@/domain/models"
 import { type TokenGenerator } from "@/data/contracts/crypto"
 
 describe("FacebookAuthService", () => {
@@ -27,6 +27,7 @@ describe("FacebookAuthService", () => {
     })
     repository = mock()
     crypto = mock()
+    crypto.generateToken.mockResolvedValue("anyGeneratedToken")
     repository.load.mockResolvedValue(undefined)
     repository.saveWithFacebook.mockResolvedValue({
       id
@@ -77,7 +78,15 @@ describe("FacebookAuthService", () => {
   it("should call TokenGenerator with correct params", async () => {
     await sut.perform({ token })
 
-    expect(crypto.generateToken).toHaveBeenCalledWith({ key: id })
+    expect(crypto.generateToken).toHaveBeenCalledWith({
+      key: id,
+      expirationInMs: AccessToken.expirationInMs
+    })
     expect(repository.saveWithFacebook).toHaveBeenCalledTimes(1)
+  })
+  it("should return an AccessToken on success", async () => {
+    const authResult = await sut.perform({ token })
+
+    expect(authResult).toEqual(new AccessToken("anyGeneratedToken"))
   })
 })
