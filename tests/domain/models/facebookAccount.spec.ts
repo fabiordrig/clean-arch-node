@@ -39,4 +39,22 @@ describe("FacebookAccount", () => {
       email: "anyFbEmail"
     })
   })
+  it("should update name if its not empty", () => {
+    const sut = new FacebookAccount(fbData, {
+      id: "anyId",
+      name: "anyName"
+    })
+
+    sut.updateWithFacebook({
+      name: "newName",
+      email: "newEmail",
+      facebookId: "newFbId"
+    })
+    expect(sut).toEqual({
+      id: "anyId",
+      facebookId: "newFbId",
+      name: "newName",
+      email: "newEmail"
+    })
+  })
 })

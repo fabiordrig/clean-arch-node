@@ -24,7 +24,7 @@ export class FacebookAccount {
   }
 
   updateWithFacebook(facebookData: { name?: string, facebookId: string, email: string }): void {
-    this.name = this.name ?? facebookData.name
+    this.name = facebookData.name ?? this.name
     this.facebookId = facebookData.facebookId
     this.email = facebookData.email
   }

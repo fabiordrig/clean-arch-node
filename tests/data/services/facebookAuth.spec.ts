@@ -18,7 +18,13 @@ describe("FacebookAuthService", () => {
   const email = "anyEmail"
   const id = "anyId"
 
-  beforeEach(() => {
+  beforeAll(() => {
+    facebookApi = mock()
+    facebookApi.loadUser.mockResolvedValue({
+      facebookId,
+      name: fbName,
+      email
+    })
     facebookApi = mock()
     facebookApi.loadUser.mockResolvedValue({
       facebookId,
@@ -32,6 +38,9 @@ describe("FacebookAuthService", () => {
     repository.saveWithFacebook.mockResolvedValue({
       id
     })
+  })
+
+  beforeEach(() => {
     sut = new FacebookAuthService(facebookApi, repository, crypto)
   })
 
